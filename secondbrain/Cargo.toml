@@ -33,7 +33,7 @@ members = [
 edition = "2021"
 # Keep in sync with the release tag: release.sh asserts this matches its <version> argument so the
 # binaries' `--version` (CARGO_PKG_VERSION) always tracks the GitHub Release / on-device VERSION file.
-version = "0.25.0"
+version = "0.25.1"
 license = "MIT"
 rust-version = "1.74"
 
