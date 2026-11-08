@@ -1,0 +1,18 @@
+[package]
+name = "qtfbspike"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+# D4 hardware spike (throwaway): proves a native Rust qtfb external app works on the Move.
+# Draws a grid + text, then echoes every input event as a dot. Results recorded in PROGRESS.md.
+[[bin]]
+name = "qtfbspike"
+path = "src/main.rs"
+
+[dependencies]
+qtfb = { path = "../../crates/qtfb" }
+render = { path = "../../crates/render" }
+image.workspace = true
+env_logger.workspace = true
+log.workspace = true

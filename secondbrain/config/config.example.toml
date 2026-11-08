@@ -1,0 +1,51 @@
+# Copy to config.toml and fill in. Keep secrets chmod 600; never commit them.
+# Relative paths resolve against this file's directory.
+
+[google]
+# Service-account JSON key (calendar.readonly). Share each calendar you want shown with the
+# service-account email (the "client_email" inside this JSON). No OAuth dance needed.
+service_account = "service-account.json"
+# Calendars to merge. "primary" = the account the SA owns; or specific calendar IDs you shared.
+calendars = ["primary"]
+
+[todoist]
+# Personal API token: Todoist → Settings → Integrations → Developer. Prefer token_file (chmod 600).
+# Personal tokens are read-write: the planner app uses it to complete and defer tasks too.
+token_file = "todoist.token"
+# token = "inline-token-discouraged"
+# Todoist v1 filter for the day's view.
+filter = "today | overdue"
+
+# Calendar events become checkable task rows when their description carries a Todoist task link
+# and the marker written by the Diarized scheduler. Every other event shows as a plain row, and
+# nothing here needs a Diarized account. To let the device remove a completed task's block, the
+# service account needs "Make changes to events" on that calendar.
+
+[planner]
+# The interactive planner app (AppLoad "Planner"): day-paging window around today.
+days_ahead = 7
+days_back = 1
+# Todoist filter for the planner's window fetch. Defaults to
+# "overdue | due before: +{days_ahead+1} days" — override if your filter grammar differs.
+# todoist_filter = "overdue | due before: +8 days"
+
+[vault]
+# Git remote for your Obsidian vault (the one Web Clipper writes into). SSH recommended on-device.
+repo_url = "git@github.com:youruser/your-vault.git"
+local = "vault"
+branch = "main"
+ssh_key = "id_ed25519"
+
+[update]
+# Optional self-update from GitHub Releases. selfupdate downloads new aarch64 binaries, checks each
+# sha256 against the release's manifest.json, and swaps them in, rolling back if a smoke test fails.
+# The manifest is not signed, and the binaries run as root, so updates are off by default.
+repo = "keithwithAI/remarkable-move-apps"
+# "latest" or a specific tag like "v0.25.0".
+channel = "latest"
+# true = check when the Agenda or Reader opens, before each sleep-screen render, and (after you
+# re-run install.sh) once a day. false = only when you run selfupdate by hand.
+auto = false
+# Only needed if you point `repo` at a private fork. Leave unset otherwise: a token_file that
+# doesn't exist is an error.
+# token_file = "github.token"

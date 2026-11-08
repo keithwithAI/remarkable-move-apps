@@ -1,0 +1,14 @@
+[Unit]
+Description=Refresh the agenda suspend screen (daily, midday, evening, and after boot)
+
+[Timer]
+# Early morning so the locked screen is fresh when you pick the device up; plus a couple of
+# daytime refreshes as events/tasks change.
+OnCalendar=*-*-* 05:30:00
+OnCalendar=*-*-* 12:30:00
+OnCalendar=*-*-* 18:30:00
+OnBootSec=2min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,31 @@
+[package]
+name = "onethingapp"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+# "One Thing": a wall-clock focus timer bound to one deliberately-chosen Todoist task per day.
+# Launched from the AppLoad launcher (external app, qtfb framebuffer). On the Mac it runs as a
+# minifb window or headless (`--frames-dir`); `--demo` uses canned tasks and no network.
+[[bin]]
+name = "onethingapp"
+path = "src/main.rs"
+
+[dependencies]
+sb-core = { path = "../../crates/core" }
+sources = { path = "../../crates/sources" }
+render = { path = "../../crates/render" }
+onething = { path = "../../crates/onething" }
+actionqueue = { path = "../../crates/actionqueue" }
+qtfb = { path = "../../crates/qtfb" }
+image.workspace = true
+chrono.workspace = true
+anyhow.workspace = true
+log.workspace = true
+env_logger.workspace = true
+# evdev touch reader uses libc syscalls; kept general (not linux-only) so its pure parser + tests
+# also compile/run on the Mac host. The syscall paths are only ever exercised on the device.
+libc = "0.2"
+
+[target.'cfg(target_os = "macos")'.dependencies]
+minifb = "0.27"

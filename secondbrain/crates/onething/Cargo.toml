@@ -1,0 +1,19 @@
+[package]
+name = "onething"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+# Pure "One Thing" logic (Elm-style): a wall-clock focus timer + a Todoist one-task picker.
+# No I/O — the same code drives the device (qtfb), the Mac simulator (minifb), and headless
+# snapshot tests. All network/file work lives in bin/onethingapp.
+[dependencies]
+sb-core = { path = "../core" }
+render = { path = "../render" }
+actionqueue = { path = "../actionqueue" }
+image.workspace = true
+chrono.workspace = true
+serde.workspace = true
+
+[dev-dependencies]
+serde_json.workspace = true

@@ -1,0 +1,24 @@
+# Rust build output (kept out of iCloud via CARGO_TARGET_DIR too)
+/target
+target/
+
+# Cross-compiled device binaries staged for deploy
+/dist
+
+# Secrets — NEVER commit
+config/config.toml
+config/*.json
+config/*.token
+config/id_*
+config/*.pem
+config/*.key
+
+# Runtime state / previews
+agenda-preview.png
+**/*.png.tmp
+cache/
+vault/
+.sync-conflict
+*.log
+
+# Note: assets/fonts/*.ttf ARE committed (embedded via include_bytes!).

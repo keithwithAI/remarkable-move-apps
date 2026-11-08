@@ -1,0 +1,9 @@
+{
+    "name": "Habits",
+    "application": "/home/root/secondbrain/bin/habitapp",
+    "args": ["--dir", "/home/root/secondbrain/vault/Habits"],
+    "environment": { "RUST_LOG": "info" },
+    "qtfb": true,
+    "aspectRatio": "move",
+    "disablesWindowedMode": true
+}

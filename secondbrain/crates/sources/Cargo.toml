@@ -1,0 +1,16 @@
+[package]
+name = "sources"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+# Google Calendar (service account) + Todoist (API v1) clients.
+[dependencies]
+sb-core = { path = "../core" }
+serde.workspace = true
+serde_json.workspace = true
+chrono.workspace = true
+thiserror.workspace = true
+log.workspace = true
+reqwest.workspace = true
+jsonwebtoken.workspace = true

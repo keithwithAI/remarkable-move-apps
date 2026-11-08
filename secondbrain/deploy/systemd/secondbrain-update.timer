@@ -1,0 +1,12 @@
+[Unit]
+Description=Daily secondbrain self-update check (and shortly after boot)
+
+[Timer]
+OnCalendar=*-*-* 04:00:00
+OnBootSec=5min
+# Spread the GitHub hit so it's not at the same instant across devices/reboots.
+RandomizedDelaySec=30min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

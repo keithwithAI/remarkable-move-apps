@@ -1,0 +1,13 @@
+[package]
+name = "syncqueue"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+# Git-backed vault sync. Vendored libgit2 → the device needs no system git, and the binary
+# is self-contained. Offline queue = local commits; sync-on-connect = pull/push when a network
+# appears.
+[dependencies]
+git2.workspace = true
+anyhow.workspace = true
+log.workspace = true

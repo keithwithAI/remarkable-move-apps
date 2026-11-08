@@ -1,0 +1,10 @@
+[package]
+name = "highlight"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+# Markdown == highlight insertion, ported from keithwithAI/reading-highlighter (MIT).
+# Pure logic — no I/O, no heavy deps — so it runs identically on Mac and device.
+[dependencies]
+thiserror.workspace = true

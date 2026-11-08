@@ -1,0 +1,40 @@
+[package]
+name = "reader-app"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+# The interactive Markdown reader/highlighter: browse the vault, read paged clippings, pen-drag to
+# highlight (writes Obsidian `==` into the source). Launched from AppLoad (qtfb framebuffer) on the
+# device; on the Mac it runs as a minifb window (--sim) or headless (--frames-dir).
+[[bin]]
+name = "reader-app"
+path = "src/main.rs"
+
+[dependencies]
+reader = { path = "../../crates/reader" }
+render = { path = "../../crates/render" }
+highlight = { path = "../../crates/highlight" }
+# Shared Config + the background self-update spawn: opening the reader checks GitHub for a newer
+# release over WiFi (fire-and-forget; applies next launch), matching the planner.
+sb-core = { path = "../../crates/core" }
+image.workspace = true
+# Fetch + cache article images over WiFi, keyed by URL hash — the same cache `vaultsync` pre-warms
+# at sync time so images are already local when reading offline.
+imagecache = { path = "../../crates/imagecache" }
+anyhow.workspace = true
+log.workspace = true
+env_logger.workspace = true
+# Reader preferences (font size, filter, sort) persisted as a small JSON beside the vault.
+serde.workspace = true
+serde_json.workspace = true
+# evdev pen/touch reader uses libc syscalls; kept general so its pure parser + tests build on the
+# Mac host too. The syscall paths only run on the device.
+libc = "0.2"
+
+# qtfb (device framebuffer client) is only used by the linux device backend.
+[target.'cfg(target_os = "linux")'.dependencies]
+qtfb = { path = "../../crates/qtfb" }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+minifb = "0.27"

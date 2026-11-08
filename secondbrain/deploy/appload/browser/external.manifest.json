@@ -1,0 +1,9 @@
+{
+    "name": "Kindle",
+    "application": "/home/root/secondbrain/bin/browser-launch.sh",
+    "args": [],
+    "environment": { "RUST_LOG": "info" },
+    "qtfb": true,
+    "aspectRatio": "move",
+    "disablesWindowedMode": true
+}

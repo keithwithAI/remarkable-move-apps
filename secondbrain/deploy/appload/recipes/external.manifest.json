@@ -1,0 +1,9 @@
+{
+    "name": "Recipes",
+    "application": "/home/root/secondbrain/bin/recipeapp",
+    "args": ["--dir", "/home/root/secondbrain/vault/Recipes"],
+    "environment": { "RUST_LOG": "info" },
+    "qtfb": true,
+    "aspectRatio": "move",
+    "disablesWindowedMode": true
+}

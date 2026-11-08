@@ -1,0 +1,13 @@
+[package]
+name = "recipe"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+# Pure recipe-browser logic (Elm-style): note scanning, filters/sorts, model + update + view.
+# Markdown pages render through the reader crate's pure parse/layout/paint pipeline.
+[dependencies]
+sb-core = { path = "../core" }
+render = { path = "../render" }
+reader = { path = "../reader" }
+image.workspace = true

@@ -1,0 +1,9 @@
+{
+    "name": "One Thing",
+    "application": "/home/root/secondbrain/bin/onethingapp",
+    "args": ["--config", "/home/root/secondbrain/config/config.toml"],
+    "environment": { "RUST_LOG": "info" },
+    "qtfb": true,
+    "aspectRatio": "move",
+    "disablesWindowedMode": true
+}

@@ -1,0 +1,17 @@
+[Unit]
+Description=Sync the Obsidian vault over Git (pull articles, push highlights)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+Nice=10
+# libgit2's SSH transport reads known_hosts from $HOME. With no User=, systemd hands this
+# service PID 1's environment — HOME=/ — so every fetch died with "error loading
+# known_hosts: ; class=Ssh (23)" and the timer never once succeeded (136 runs, 0 successes,
+# found 2026-08-27). The key and known_hosts live under /home/root, which is root's real home
+# per /etc/passwd; systemd only derives HOME from passwd when User= is set.
+Environment=HOME=/home/root
+ExecStart=/home/root/secondbrain/bin/vaultsync --config /home/root/secondbrain/config/config.toml
+# Offline-safe: with no network it commits locally (the offline queue) and exits non-zero;
+# the next run pushes once a network appears.

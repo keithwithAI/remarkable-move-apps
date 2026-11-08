@@ -1,0 +1,28 @@
+[package]
+name = "browserapp"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+# A minimal full-screen web browser for reading Kindle Cloud Reader (read.amazon.co.uk) on the
+# device. Embeds WPE WebKit (via the C `wpeengine` shim in engine/) rendering off-screen to SHM,
+# blits frames into the qtfb framebuffer, and forwards evdev touch + edge-tap page turns as WPE
+# input. Device-only: the engine compiles and links against WPE, so on the Mac the binary is a
+# stub that explains it must run on the device.
+[[bin]]
+name = "browserapp"
+path = "src/main.rs"
+
+[dependencies]
+sb-core = { path = "../../crates/core" }
+qtfb = { path = "../../crates/qtfb" }
+render = { path = "../../crates/render" }
+image.workspace = true
+anyhow.workspace = true
+log.workspace = true
+env_logger.workspace = true
+libc = "0.2"
+
+[build-dependencies]
+cc = "1"
+pkg-config = "0.3"

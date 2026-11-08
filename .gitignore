@@ -1,0 +1,24 @@
+# macOS / iCloud
+.DS_Store
+**/.DS_Store
+.AppleDouble
+Icon?
+
+# Rust build artifacts (also redirected out of iCloud via CARGO_TARGET_DIR)
+target/
+
+# Secrets — defense in depth (secondbrain/.gitignore also covers these)
+**/config/config.toml
+**/config/*.json
+**/config/*.token
+**/config/*.pem
+**/config/*.key
+**/config/id_*
+
+# Runtime / generated artifacts
+**/agenda-preview.png
+**/*.png.tmp
+**/cache/
+**/vault/
+**/.sync-conflict
+

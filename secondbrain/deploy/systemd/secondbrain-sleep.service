@@ -1,0 +1,20 @@
+[Unit]
+Description=Refresh the agenda lock screen before the device sleeps
+# Runs on the way into sleep.target (suspend / suspend-then-hibernate). Ordered BEFORE the sleep so
+# the fresh PNG is on disk before the screen is captured, and before the system-sleep hook takes
+# WiFi down (so a fetch can still reach the network).
+Before=sleep.target
+
+[Service]
+Type=oneshot
+# Match the Planner/agenda timezone pin so rendered times stay local even if the system zone drifts.
+Environment=TZ=Europe/London
+# --max-age 900: re-render on every sleep, but only pull fresh Google/Todoist data when the cache is
+# older than 15 min. The device auto-sleeps often, so this bounds battery + API use; offline it falls
+# back to the cache. It's a Wants (WantedBy) not Requires, so a failed render never blocks sleep.
+ExecStart=/home/root/secondbrain/bin/agenda --config /home/root/secondbrain/config/config.toml --max-age 900
+# systemd bounds the render (BusyBox has no `timeout`): a hung fetch is killed and the sleep proceeds.
+TimeoutStartSec=15
+
+[Install]
+WantedBy=sleep.target

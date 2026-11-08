@@ -1,0 +1,27 @@
+[package]
+name = "habitapp"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+# Obsidian-backed habit tracker: today list with tap-to-check + streaks, per-habit month
+# heatmap. Launched from the AppLoad launcher (external app, qtfb framebuffer); on the Mac a
+# minifb window or headless (--frames-dir).
+[[bin]]
+name = "habitapp"
+path = "src/main.rs"
+
+[dependencies]
+sb-core = { path = "../../crates/core" }
+render = { path = "../../crates/render" }
+habit = { path = "../../crates/habit" }
+qtfb = { path = "../../crates/qtfb" }
+image.workspace = true
+chrono.workspace = true
+anyhow.workspace = true
+log.workspace = true
+env_logger.workspace = true
+libc = "0.2"
+
+[target.'cfg(target_os = "macos")'.dependencies]
+minifb = "0.27"

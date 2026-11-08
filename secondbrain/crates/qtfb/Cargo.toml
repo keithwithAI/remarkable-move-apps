@@ -1,0 +1,16 @@
+[package]
+name = "qtfb"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+# Clean-room client for the qtfb compositor protocol (XOVI AppLoad's framebuffer server).
+# The wire format (message ids, struct layouts, /tmp/qtfb.sock, /dev/shm/qtfb_<key>) is
+# reimplemented from the protocol constants in asivery/rm-appload — no GPL code is copied.
+# Message encode/decode is pure and unit-tested everywhere; the socket + mmap transport is
+# Linux-only (SOCK_SEQPACKET does not exist on macOS).
+[dependencies]
+log.workspace = true
+
+[target.'cfg(target_os = "linux")'.dependencies]
+libc = "0.2"

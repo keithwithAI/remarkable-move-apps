@@ -1,0 +1,25 @@
+[package]
+name = "selfupdate"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+# Over-the-WiFi self-update: pull new aarch64 binaries from a GitHub Release, verify sha256,
+# swap them in atomically with rollback. Driven by the secondbrain-update.timer.
+[[bin]]
+name = "selfupdate"
+path = "src/main.rs"
+
+[dependencies]
+sb-core = { path = "../../crates/core" }
+reqwest.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+anyhow.workspace = true
+log.workspace = true
+env_logger.workspace = true
+chrono.workspace = true
+# flock() for the run lock — overlapping triggers (timer + each app's on-launch check) must not
+# interleave the binary swap.
+libc = "0.2"

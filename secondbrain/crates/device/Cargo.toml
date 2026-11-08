@@ -1,0 +1,11 @@
+[package]
+name = "device"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+# The ONLY device-specific crate: installs the agenda as the suspend screen.
+# Isolated behind the SuspendScreen trait so a firmware change touches only this crate.
+[dependencies]
+image.workspace = true
+anyhow.workspace = true

@@ -1,0 +1,73 @@
+# reMarkable Paper Pro Move — second-brain Rust workspace.
+# Deploys to /home/root/secondbrain on the device. Built & tested on the Mac first.
+[workspace]
+resolver = "2"
+members = [
+    "crates/core",
+    "crates/highlight",
+    "crates/imagecache",
+    "crates/render",
+    "crates/sources",
+    "crates/device",
+    "crates/syncqueue",
+    "crates/actionqueue",
+    "crates/ui",
+    "crates/qtfb",
+    "crates/reader",
+    "crates/habit",
+    "crates/onething",
+    "crates/recipe",
+    "bin/agenda",
+    "bin/vaultsync",
+    "bin/selfupdate",
+    "bin/agendaapp",
+    "bin/qtfbspike",
+    "bin/reader-app",
+    "bin/habitapp",
+    "bin/onethingapp",
+    "bin/recipeapp",
+    "bin/browserapp",
+]
+
+[workspace.package]
+edition = "2021"
+# Keep in sync with the release tag: release.sh asserts this matches its <version> argument so the
+# binaries' `--version` (CARGO_PKG_VERSION) always tracks the GitHub Release / on-device VERSION file.
+version = "0.25.0"
+license = "MIT"
+rust-version = "1.74"
+
+[workspace.dependencies]
+anyhow = "1"
+thiserror = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "0.8"
+chrono = { version = "0.4", features = ["serde", "clock"] }
+log = "0.4"
+env_logger = "0.11"
+# HTTP with rustls (no OpenSSL → cleaner aarch64 cross-compile later).
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "rustls-tls", "json"] }
+jsonwebtoken = "9"
+base64 = "0.22"
+sha2 = "0.10"
+# Imaging (pure-Rust decoders → clean aarch64 cross-compile): PNG/JPEG/WebP/GIF cover the clipping
+# photos; format is sniffed from magic bytes so extensionless CDN URLs still decode. (svg/avif need
+# heavy extra deps → the reader falls back to a placeholder for those.)
+image = { version = "0.25", default-features = false, features = ["png", "jpeg", "webp", "gif"] }
+ab_glyph = "0.2"
+# Markdown parsing for the reader — `into_offset_iter()` yields source byte spans per event,
+# which we need to map rendered glyphs back to the original `.md` for `==highlight==` insertion.
+pulldown-cmark = { version = "0.12", default-features = false }
+# Git via vendored libgit2 (self-contained binary; device needs no system git).
+git2 = { version = "0.19", default-features = false, features = ["vendored-libgit2", "ssh", "vendored-openssl"] }
+
+# Fast release binaries for the device. opt-level 3 (not "z"): the reader re-rasterizes a full
+# 954×1696 frame per redraw, and the per-pixel loops need the vectorization "z" suppresses; the
+# embedded fonts dominate binary size anyway, so the code-size cost is small.
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"

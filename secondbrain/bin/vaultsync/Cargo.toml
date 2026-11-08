@@ -1,0 +1,20 @@
+[package]
+name = "vaultsync"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+# Phase 2: sync the Obsidian vault (pull articles, push highlights) over Git.
+[[bin]]
+name = "vaultsync"
+path = "src/main.rs"
+
+[dependencies]
+sb-core = { path = "../../crates/core" }
+syncqueue = { path = "../../crates/syncqueue" }
+# Pre-warm article/book images into the reader's on-disk cache after a pull, so the reader opens
+# fully offline (identical keying to the reader's read-time fetch).
+imagecache = { path = "../../crates/imagecache" }
+anyhow.workspace = true
+log.workspace = true
+env_logger.workspace = true

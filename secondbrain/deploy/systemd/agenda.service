@@ -1,0 +1,17 @@
+[Unit]
+Description=Render today's agenda and set the reMarkable suspend screen
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+Nice=10
+# Pin the timezone so the rendered times are always local, independent of the device's system
+# zone (which can revert to UTC without a network time-sync). Matches the Planner's TZ pin.
+Environment=TZ=Europe/London
+# Before rendering, check GitHub Releases for new binaries over WiFi (no-op when up to date or
+# offline). The leading "-" makes a failed/unreachable update non-fatal, so the screen still refreshes.
+ExecStartPre=-/home/root/secondbrain/bin/selfupdate --config /home/root/secondbrain/config/config.toml
+ExecStart=/home/root/secondbrain/bin/agenda --config /home/root/secondbrain/config/config.toml
+# Offline-safe: on fetch failure it falls back to the cached agenda and still exits 0-ish;
+# a hard failure here just means the previous suspend image stays.

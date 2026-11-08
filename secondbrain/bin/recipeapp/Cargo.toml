@@ -1,0 +1,28 @@
+[package]
+name = "recipeapp"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+# Obsidian-backed recipe browser: filterable library + paged reading via the reader crate,
+# heatmap. Launched from the AppLoad launcher (external app, qtfb framebuffer); on the Mac a
+# minifb window or headless (--frames-dir).
+[[bin]]
+name = "recipeapp"
+path = "src/main.rs"
+
+[dependencies]
+sb-core = { path = "../../crates/core" }
+render = { path = "../../crates/render" }
+recipe = { path = "../../crates/recipe" }
+reader = { path = "../../crates/reader" }
+qtfb = { path = "../../crates/qtfb" }
+image.workspace = true
+chrono.workspace = true
+anyhow.workspace = true
+log.workspace = true
+env_logger.workspace = true
+libc = "0.2"
+
+[target.'cfg(target_os = "macos")'.dependencies]
+minifb = "0.27"

@@ -1,0 +1,11 @@
+[Unit]
+Description=Check for and apply secondbrain tool updates (GitHub Releases, over WiFi)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+Nice=15
+ExecStart=/home/root/secondbrain/bin/selfupdate --config /home/root/secondbrain/config/config.toml
+# Offline-safe: a failed fetch exits non-zero and the next timer run retries. Updates are
+# checksum-verified and rolled back if a new binary fails its --version smoke test.

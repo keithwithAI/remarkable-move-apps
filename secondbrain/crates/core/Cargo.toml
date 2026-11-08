@@ -1,0 +1,16 @@
+[package]
+name = "sb-core"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+# Shared types (neutral agenda model: events + tasks), offline cache, and config/creds.
+[dependencies]
+chrono.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+toml.workspace = true
+thiserror.workspace = true
+log.workspace = true
+# `spawn_self_update` detaches the sibling `selfupdate` via setsid — device-only (cfg(linux)).
+libc = "0.2"

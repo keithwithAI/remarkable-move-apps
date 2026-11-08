@@ -1,0 +1,16 @@
+[package]
+name = "imagecache"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+# Blocking HTTP (rustls) to fetch image bytes; sha2 to key the on-disk cache by URL. Isolated to
+# this leaf crate so the HTTP dep never reaches `sb-core`/`render` and the apps built on them.
+reqwest.workspace = true
+sha2.workspace = true
+# A CommonMark pass to enumerate a doc's image URLs — the same selection the reader's parser makes,
+# without pulling in `reader`/`render`.
+pulldown-cmark.workspace = true
+log.workspace = true

@@ -1,0 +1,18 @@
+[package]
+name = "actionqueue"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+# Offline write queue for Todoist actions (complete / defer), modeled on an earlier
+# pending_actions table but as an atomic JSON file next to the other caches. Actions enqueue
+# instantly (optimistic UI), flush when a network appears, and park to actions.failed.json
+# instead of being silently dropped.
+[dependencies]
+sb-core = { path = "../core" }
+sources = { path = "../sources" }
+serde.workspace = true
+serde_json.workspace = true
+chrono.workspace = true
+log.workspace = true
+libc = "0.2"

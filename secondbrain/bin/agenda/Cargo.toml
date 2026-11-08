@@ -1,0 +1,21 @@
+[package]
+name = "agenda"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+# Phase 1 + 4A: fetch today's calendar + Todoist, render, install as the suspend screen.
+[[bin]]
+name = "agenda"
+path = "src/main.rs"
+
+[dependencies]
+sb-core = { path = "../../crates/core" }
+render = { path = "../../crates/render" }
+device = { path = "../../crates/device" }
+sources = { path = "../../crates/sources" }
+actionqueue = { path = "../../crates/actionqueue" }
+chrono.workspace = true
+anyhow.workspace = true
+log.workspace = true
+env_logger.workspace = true

@@ -1,0 +1,12 @@
+[package]
+name = "render"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+# Agenda → 1696×954 greyscale PNG. Fonts are embedded so the device binary is self-contained.
+[dependencies]
+sb-core = { path = "../core" }
+image.workspace = true
+ab_glyph.workspace = true
+chrono.workspace = true

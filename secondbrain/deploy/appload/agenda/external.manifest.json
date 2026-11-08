@@ -1,0 +1,9 @@
+{
+    "name": "Agenda",
+    "application": "/home/root/secondbrain/bin/agendaapp",
+    "args": ["--config", "/home/root/secondbrain/config/config.toml"],
+    "environment": { "RUST_LOG": "info" },
+    "qtfb": true,
+    "aspectRatio": "move",
+    "disablesWindowedMode": true
+}

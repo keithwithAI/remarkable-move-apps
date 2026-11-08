@@ -1,0 +1,16 @@
+[package]
+name = "reader"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+# Reader core: parse Obsidian-clipped Markdown into styled blocks carrying source byte spans,
+# then paginate them into glyph runs for the e-ink reader. Pure logic, no device/framebuffer
+# deps → fully testable on the Mac host. The byte spans are the linchpin that lets a pen
+# selection map back to an exact source range for byte-identical `==highlight==` insertion.
+[dependencies]
+pulldown-cmark.workspace = true
+# Layout measures text and paints pages with the shared IBM Plex faces + raster primitives.
+render = { path = "../render" }
+ab_glyph.workspace = true
+image.workspace = true
