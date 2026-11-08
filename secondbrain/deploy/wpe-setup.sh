@@ -32,6 +32,6 @@ rm -rf "$ROOT/wpe.old"
 mv "$ROOT/wpe.new" "$ROOT/wpe"
 rm -rf "$ROOT/wpe.old"
 
-# Maintain the multiarch symlink WebKit's compiled-in helper paths need (writable /usr, no remount).
-ln -sfn "$ROOT/wpe/usr/lib/aarch64-linux-gnu" /usr/lib/aarch64-linux-gnu
-echo "WPE runtime installed at $ROOT/wpe. Re-run install.sh (or launch the Browser app) next."
+# install.sh makes the link WebKit needs on the read-only system partition and adds the launcher.
+echo "WPE runtime installed at $ROOT/wpe. Finishing with install.sh ..."
+exec sh "$ROOT/deploy/install.sh"

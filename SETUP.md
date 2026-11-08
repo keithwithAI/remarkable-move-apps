@@ -47,17 +47,37 @@ OS 3.27.1.0 is the only version this project has been tested on. On a different 
 
 ## 5. Install XOVI and AppLoad
 
-Install these from their own projects and follow their instructions:
+This project uses three things that belong to other people, none of them distributed here:
 
-- [XOVI](https://github.com/asivery/xovi)
-- [AppLoad](https://github.com/asivery/rm-appload)
+- [XOVI](https://github.com/asivery/xovi), which loads extensions into the tablet's interface
+- [AppLoad](https://github.com/asivery/rm-appload), which adds the app launcher
 - [xovi-tripletap](https://github.com/rmitchellscott/xovi-tripletap), which lets you start XOVI by pressing the power button three times
 
-[reManager](https://github.com/rmitchellscott/reManager) can install these for you.
+The [Vellum](https://github.com/vellum-dev/vellum-cli) package manager installs all three. Install Vellum with the two commands in its README, run on the tablet, then add the packages:
 
-XOVI needs its hash table built once for each OS version, and it doesn't load by itself after a reboot. If the AppLoad icon disappears after a restart, press the power button three times within two seconds.
+```sh
+ssh root@10.11.99.1 '/home/root/.vellum/bin/vellum update && /home/root/.vellum/bin/vellum add appload tripletap'
+```
+
+If you'd rather use a desktop app, [reManager](https://github.com/rmitchellscott/reManager) installs the same packages.
+
+SSH can stop responding right after this install. If it does, restart the tablet from its power menu.
+
+Build XOVI's hash table, which you need to do once for each OS version. The interface stops for about a minute, and if the tablet asks for your passcode, enter it there:
+
+```sh
+ssh root@10.11.99.1 'echo | /home/root/xovi/rebuild_hashtable'
+```
+
+Then start XOVI:
+
+```sh
+ssh root@10.11.99.1 'systemd-run --collect --unit=xovi-restart bash /home/root/xovi/start'
+```
 
 Before going further, confirm that the AppLoad launcher opens on the tablet.
+
+XOVI doesn't load by itself after a reboot. If the AppLoad icon disappears after a restart, press the power button three times within two seconds.
 
 ## 6. Install the apps
 

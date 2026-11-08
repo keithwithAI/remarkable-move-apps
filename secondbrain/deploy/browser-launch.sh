@@ -5,8 +5,8 @@
 #   2. no daemon → spawn one in its own session (setsid, so AppLoad's teardown can't reach it),
 #      then attach;
 #   3. attach still failing → legacy single-process mode. Never a dead app.
-# Also self-heals the multiarch symlink WebKit's compiled-in helper paths need (OS updates wipe
-# /usr; it's writable so no remount). The runtime is app-owned at $R and survives OS updates.
+# Also tries to restore the multiarch symlink WebKit's compiled-in helper paths need. That only
+# works if / is writable; install.sh is what creates it. The runtime at $R survives OS updates.
 R=/home/root/secondbrain/wpe
 export R
 LNK=/usr/lib/aarch64-linux-gnu
